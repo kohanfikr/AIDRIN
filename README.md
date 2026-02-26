@@ -46,7 +46,7 @@ graph TD
         LLM[LLM Profiler\nGPT-4o Actionable Insights]
         JSON[JSON Report Generator]
         HTML[Static HTML Dashboard]
-        STREAMLIT[Premium Streamlit UI]
+        STREAMLIT[Streamlit UI]
     end
 
     CSV -.-> INGEST

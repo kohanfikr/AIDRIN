@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AIDRIN Concept Report</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        h2 { border-bottom: 2px solid #3498db; padding-bottom: 5px; color: #2980b9; }
+        pre { background: #f8f9fa; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .llm-box { background-color: #e8f4f8; padding: 20px; border-left: 5px solid #3498db; margin-top: 20px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AIDRIN Readiness Report</h1>
+        <p><strong>Source:</strong> test_data.h5</p>
+        <p><strong>Rows:</strong> 1000 | <strong>Columns:</strong> 5</p>
+        
+        <h2>1. Traditional Data Quality</h2>
+        <pre>{
+  "summary_statistics": {
+    "age": {
+      "mean": 40.19332058095932,
+      "median": 40.25300598144531,
+      "std": 9.792159080505371,
+      "min": 7.587326526641846,
+      "max": 78.52731323242188,
+      "mode": 32.69633483886719
+    },
+    "income": {
+      "mean": 60.64416199111938,
+      "median": 60.26868438720703,
+      "std": 15.319867134094238,
+      "min": 14.074769973754883,
+      "max": 126.53885650634766,
+      "mode": 57.26757049560547
+    },
+    "is_married": {
+      "mean": 0.49,
+      "median": 0.0,
+      "std": 0.5001501276118503,
+      "min": 0.0,
+      "max": 1.0,
+      "mode": 0.0
+    },
+    "approved": {
+      "mean": 0.5,
+      "median": 0.5,
+      "std": 0.5002501876563868,
+      "min": 0.0,
+      "max": 1.0,
+      "mode": 1.0
+    }
+  },
+  "missing_values_ratio": {
+    "age": 0.0,
+    "income": 0.0,
+    "is_married": 0.0,
+    "approved": 0.0,
+    "name": 0.0
+  },
+  "exact_duplicates_ratio": 0.0,
+  "outliers_ratio": {
+    "age": 0.008,
+    "income": 0.007,
+    "is_married": 0.0,
+    "approved": 0.0
+  }
+}</pre>
+        
+        <h2>2. AI-Specific Readiness</h2>
+        <pre>{
+  "feature_correlations": {
+    "age": {
+      "income": 0.9456187802045238,
+      "is_married": -0.027079731024861057,
+      "approved": 0.28545537788415226
+    },
+    "income": {
+      "age": 0.9456187802045237,
+      "is_married": -0.04006257387031833,
+      "approved": 0.30933311424743426
+    },
+    "is_married": {
+      "age": -0.02707973102486105,
+      "income": -0.04006257387031833,
+      "approved": 0.652130439133044
+    },
+    "approved": {
+      "age": 0.2854553778841523,
+      "income": 0.3093331142474343,
+      "is_married": 0.652130439133044
+    }
+  },
+  "target_error": "Target column 'target_income' not found.",
+  "fairness_bias": {
+    "error": "Target 'target_income' or protected attribute 'gender' missing."
+  }
+}</pre>
+        
+        <h2>3. Data Privacy & Compliance</h2>
+        <pre>{
+  "pii_detected": {}
+}</pre>
+        
+        <h2>4. FAIR Metadata Compliance</h2>
+        <pre>{
+  "message": "No metadata dictionary provided for FAIR analysis."
+}</pre>
+        
+        <h2>5. Actionable Intelligence (LLM)</h2>
+        <div class="llm-box">
+            ```markdown<br># Dataset Readiness Summary<br><br>## Key Issues Identified<br><br>1. **Target Column Missing**: <br>   - The dataset is missing the target column `'target_income'`. This needs to be added for supervised learning tasks.<br><br>2. **Fairness and Bias Concerns**:<br>   - The dataset lacks the target `'target_income'` and the protected attribute `'gender'`, which are necessary for assessing fairness and bias. Ensure these columns are included if fairness analysis is required.<br><br>3. **High Correlation Between Features**:<br>   - There is a high correlation between `age` and `income` (0.9456). Consider dimensionality reduction techniques or feature selection to mitigate multicollinearity issues.<br><br>## Additional Observations<br><br>- **Missing Values**: <br>  - No missing values were detected, which is optimal for model training.<br><br>- **Exact Duplicates**:<br>  - No exact duplicates were found, indicating data uniqueness.<br><br>- **Outliers**:<br>  - Low outlier ratios in `age` (0.8%) and `income` (0.7%). Review these outliers to determine if they should be removed or treated.<br><br>- **Feature Correlations**:<br>  - Moderate correlation between `is_married` and `approved` (0.6521). Consider the implications of this relationship on model predictions.<br><br>## Recommendations<br><br>- **Add Missing Columns**:<br>  - Include the `'target_income'` column and the `'gender'` attribute to enable target prediction and fairness analysis.<br><br>- **Address Multicollinearity**:<br>  - Investigate the high correlation between `age` and `income`. Use techniques like PCA or remove one of the features if necessary.<br><br>- **Outlier Treatment**:<br>  - Examine the identified outliers in `age` and `income` to decide on appropriate handling strategies.<br><br>- **Fairness Analysis**:<br>  - Once the `'gender'` attribute is included, perform a fairness analysis to ensure there is no bias in the dataset.<br><br>By addressing these issues, the dataset will be better prepared for effective machine learning model development.<br>```
+        </div>
+    </div>
+</body>
+</html>

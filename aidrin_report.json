@@ -1,0 +1,97 @@
+{
+    "source": "test_data.h5",
+    "row_count": 1000,
+    "column_count": 5,
+    "columns": [
+        "age",
+        "income",
+        "is_married",
+        "approved",
+        "name"
+    ],
+    "traditional_metrics": {
+        "summary_statistics": {
+            "age": {
+                "mean": 40.19332058095932,
+                "median": 40.25300598144531,
+                "std": 9.792159080505371,
+                "min": 7.587326526641846,
+                "max": 78.52731323242188,
+                "mode": 32.69633483886719
+            },
+            "income": {
+                "mean": 60.64416199111938,
+                "median": 60.26868438720703,
+                "std": 15.319867134094238,
+                "min": 14.074769973754883,
+                "max": 126.53885650634766,
+                "mode": 57.26757049560547
+            },
+            "is_married": {
+                "mean": 0.49,
+                "median": 0.0,
+                "std": 0.5001501276118503,
+                "min": 0.0,
+                "max": 1.0,
+                "mode": 0.0
+            },
+            "approved": {
+                "mean": 0.5,
+                "median": 0.5,
+                "std": 0.5002501876563868,
+                "min": 0.0,
+                "max": 1.0,
+                "mode": 1.0
+            }
+        },
+        "missing_values_ratio": {
+            "age": 0.0,
+            "income": 0.0,
+            "is_married": 0.0,
+            "approved": 0.0,
+            "name": 0.0
+        },
+        "exact_duplicates_ratio": 0.0,
+        "outliers_ratio": {
+            "age": 0.008,
+            "income": 0.007,
+            "is_married": 0.0,
+            "approved": 0.0
+        }
+    },
+    "ai_readiness_metrics": {
+        "feature_correlations": {
+            "age": {
+                "income": 0.9456187802045238,
+                "is_married": -0.027079731024861057,
+                "approved": 0.28545537788415226
+            },
+            "income": {
+                "age": 0.9456187802045237,
+                "is_married": -0.04006257387031833,
+                "approved": 0.30933311424743426
+            },
+            "is_married": {
+                "age": -0.02707973102486105,
+                "income": -0.04006257387031833,
+                "approved": 0.652130439133044
+            },
+            "approved": {
+                "age": 0.2854553778841523,
+                "income": 0.3093331142474343,
+                "is_married": 0.652130439133044
+            }
+        },
+        "target_error": "Target column 'target_income' not found.",
+        "fairness_bias": {
+            "error": "Target 'target_income' or protected attribute 'gender' missing."
+        }
+    },
+    "fair_compliance": {
+        "message": "No metadata dictionary provided for FAIR analysis."
+    },
+    "privacy_metrics": {
+        "pii_detected": {}
+    },
+    "llm_insights": "```markdown\n# Dataset Readiness Summary\n\n## Key Issues Identified\n\n1. **Target Column Missing**: \n   - The dataset is missing the target column `'target_income'`. This needs to be added for supervised learning tasks.\n\n2. **Fairness and Bias Concerns**:\n   - The dataset lacks the target `'target_income'` and the protected attribute `'gender'`, which are necessary for assessing fairness and bias. Ensure these columns are included if fairness analysis is required.\n\n3. **High Correlation Between Features**:\n   - There is a high correlation between `age` and `income` (0.9456). Consider dimensionality reduction techniques or feature selection to mitigate multicollinearity issues.\n\n## Additional Observations\n\n- **Missing Values**: \n  - No missing values were detected, which is optimal for model training.\n\n- **Exact Duplicates**:\n  - No exact duplicates were found, indicating data uniqueness.\n\n- **Outliers**:\n  - Low outlier ratios in `age` (0.8%) and `income` (0.7%). Review these outliers to determine if they should be removed or treated.\n\n- **Feature Correlations**:\n  - Moderate correlation between `is_married` and `approved` (0.6521). Consider the implications of this relationship on model predictions.\n\n## Recommendations\n\n- **Add Missing Columns**:\n  - Include the `'target_income'` column and the `'gender'` attribute to enable target prediction and fairness analysis.\n\n- **Address Multicollinearity**:\n  - Investigate the high correlation between `age` and `income`. Use techniques like PCA or remove one of the features if necessary.\n\n- **Outlier Treatment**:\n  - Examine the identified outliers in `age` and `income` to decide on appropriate handling strategies.\n\n- **Fairness Analysis**:\n  - Once the `'gender'` attribute is included, perform a fairness analysis to ensure there is no bias in the dataset.\n\nBy addressing these issues, the dataset will be better prepared for effective machine learning model development.\n```"
+}
